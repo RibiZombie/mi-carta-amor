@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Para el amor de mi vida ❤️</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* -------- RESET Y BASE -------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+      min-height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+    /* -------- CORAZONES FLOTANTES -------- */
+    .corazon {
+      position: fixed;
+      bottom: -80px;
+      font-size: 28px;
+      animation: flotar lineal infinite;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.5;
+      filter: drop-shadow(0 0 6px rgba(214,51,132,0.3));
+    }
+    @keyframes flotar {
+      0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.5; }
+      100% { transform: translateY(-120vh) rotate(720deg) scale(0.3); opacity: 0; }
+    }
+    /* -------- CONTROLES DE MÚSICA -------- */
+    .controles-musica {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9998;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(10px);
+      border-radius: 60px;
+      padding: 10px 18px;
+      box-shadow: 0 8px 30px rgba(214,51,132,0.25);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid rgba(255,255,255,0.4);
+    }
+    .controles-musica button {
+      background: linear-gradient(135deg, #ff6fb1, #ff4f9e);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      transition: 0.3s;
+      box-shadow: 0 4px 12px rgba(255,79,158,0.3);
+    }
+    .controles-musica button:hover { transform: scale(1.1); }
+    .controles-musica input[type="range"] {
+      width: 80px;
+      height: 4px;
+      -webkit-appearance: none;
+      background: #ffb6d9;
+      border-radius: 2px;
+      outline: none;
+    }
+    .controles-musica input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #ff4f9e;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    /* -------- PANTALLA INICIAL (SOBRE) -------- */
+    .pantalla-inicial {
+      position: fixed;
+      top:0; left:0; width:100%; height:100%;
+      background: radial-gradient(ellipse at center, #fff5f9 0%, #fce4ec 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+      transition: opacity 1s ease, transform 1s ease;
+    }
+    .pantalla-inicial.oculta {
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.95);
+    }
+    .sobre {
+      width: 340px;
+      height: 240px;
+      background: linear-gradient(145deg, #fff, #f5f0f2);
+      border-radius: 16px;
+      position: relative;
+      box-shadow: 0 30px 60px rgba(214,51,132,0.3);
+      margin-bottom: 40px;
+      cursor: pointer;
+      transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.4s ease;
+      overflow: hidden;
+    }
+    .sobre:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 40px 70px rgba(214,51,132,0.4); }
+    .sobre::before {
+      content: "";
+      position: absolute;
+      top:0; left:0; right:0; height:130px;
+      background: linear-gradient(135deg, #ff6fb1, #ff4f9e);
+      border-radius: 16px 16px 0 0;
+      z-index:1;
+    }
+    .sobre::after {
+      content: "";
+      position: absolute;
+      top: 65px; left:50%; transform: translateX(-50%);
+      width: 70px; height:70px;
+      background: #fff;
+      border-radius: 50%;
+      z-index:2;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    }
+    .sello {
+      position: absolute;
+      top: 85px; left:50%; transform: translateX(-50%);
+      width: 80px; height:80px;
+      background: linear-gradient(135deg, #ff6fb1, #ff4f9e);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index:3;
+      border: 4px solid #fff;
+      box-shadow: 0 8px 25px rgba(214,51,132,0.4);
+    }
+    .sello i { color: #fff; font-size: 32px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
+    .destinatario {
+      position: absolute;
+      bottom: 40px; left:0; right:0;
+      text-align: center;
+      font-family: 'Great Vibes', cursive;
+      font-size: 40px;
+      color: #d63384;
+      z-index:2;
+      text-shadow: 0 2px 10px rgba(214,51,132,0.15);
+    }
+    .boton-abrir {
+      background: linear-gradient(135deg, #ff6fb1, #ff4f9e);
+      color: #fff;
+      border: none;
+      padding: 18px 48px;
+      font-size: 22px;
+      border-radius: 60px;
+      cursor: pointer;
+      font-weight: 600;
+      box-shadow: 0 12px 30px rgba(214,51,132,0.35);
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      letter-spacing: 0.5px;
+    }
+    .boton-abrir:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 18px 40px rgba(214,51,132,0.45); }
+    /* -------- MENSAJE INICIAL (10s) -------- */
+    .mensaje-inicial {
+      position: fixed;
+      top:0; left:0; width:100%; height:100%;
+      background: rgba(255,182,217,0.95);
+      backdrop-filter: blur(8px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.8s ease;
+    }
+    .mensaje-inicial.mostrar { opacity:1; pointer-events:all; }
+    .mensaje-contenido {
+      background: #fff;
+      border-radius: 30px;
+      padding: 55px 45px;
+      max-width: 640px;
+      width: 92%;
+      text-align: center;
+      box-shadow: 0 30px 70px rgba(214,51,132,0.4);
+      transform: scale(0.9);
+      animation: aparecer 0.8s ease forwards;
+      border: 4px solid #ff6fb1;
+      position: relative;
+      overflow: hidden;
+    }
+    .mensaje-contenido::before {
+      content: "";
+      position: absolute;
+      top:0; left:0; right:0; height:12px;
+      background: linear-gradient(90deg, #ff6fb1, #ff4f9e, #ff6fb1);
+      background-size: 200% 100%;
+      animation: gradiente 3s linear infinite;
+    }
+    @keyframes gradiente { 0%{background-position:0% 0%;} 100%{background-position:200% 0%;} }
+    .mensaje-contenido::after {
+      content: "💖";
+      position: absolute;
+      top: -30px; left:50%; transform: translateX(-50%);
+      font-size: 70px;
+      background: #fff;
+      width: 80px; height:80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+      z-index:2;
+    }
+    @keyframes aparecer { 0%{transform:scale(0.9);opacity:0;} 100%{transform:scale(1);opacity:1;} }
+    .mensaje-contenido h2 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 50px;
+      color: #d63384;
+      margin: 15px 0 20px;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.06);
+    }
+    .mensaje-contenido p {
+      font-size: 22px;
+      line-height: 1.9;
+      color: #555;
+      margin-bottom: 15px;
+      font-weight: 500;
+    }
+    .mensaje-contenido .emoji {
+      font-size: 55px;
+      margin: 20px 0;
+      animation: latido 1.5s ease-in-out infinite;
+    }
+    @keyframes latido { 0%,100%{transform:scale(1);} 50%{transform:scale(1.15);} }
+    .contador-oculto { display: none; }
+
+    /* -------- CONTENIDO DE LA CARTA -------- */
+    .contenido-carta {
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 20px 20px 100px;
+      display: none;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 1s ease, transform 1s ease;
+      position: relative;
+      z-index: 10;
+      max-height: 100vh;
+      overflow-y: auto;
+    }
+    .contenido-carta.mostrar {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+      overflow-y: auto;
+    }
+    .contenido-carta::-webkit-scrollbar { width: 8px; }
+    .contenido-carta::-webkit-scrollbar-track { background: rgba(255,230,242,0.4); border-radius: 10px; }
+    .contenido-carta::-webkit-scrollbar-thumb { background: #ff6fb1; border-radius: 10px; }
+
+    /* Contenedor principal */
+    .container {
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-radius: 28px;
+      box-shadow: 0 20px 60px rgba(255,105,180,0.2), 0 0 0 1px rgba(255,255,255,0.5);
+      overflow: hidden;
+      border: 1px solid rgba(255,230,242,0.6);
+      margin-bottom: 30px;
+    }
+
+    /* -------- HEADER CON CARRUSEL (MANUAL) -------- */
+    .header {
+      position: relative;
+      height: 380px;
+      overflow: hidden;
+      background: linear-gradient(45deg, #ffd6e7, #ffb6d9);
+    }
+    .carrusel {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    .carrusel-slide {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top:0; left:0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      padding: 10px;
+    }
+    .carrusel-slide.activa {
+      opacity: 1;
+      z-index: 2;
+    }
+    .carrusel-slide img {
+      max-width: 95%;
+      max-height: 95%;
+      object-fit: contain;
+      border-radius: 14px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+      background: #fff;
+    }
+    /* Controles del carrusel superior */
+    .carrusel-controles {
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      z-index: 5;
+    }
+    .carrusel-controles button {
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(4px);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      color: #d63384;
+      font-size: 18px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    .carrusel-controles button:hover { background: #fff; transform: scale(1.08); }
+
+    .titulo-principal {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(214,51,132,0.92), rgba(214,51,132,0.7));
+      color: #fff;
+      padding: 22px 30px 18px;
+      text-align: center;
+      z-index: 3;
+      backdrop-filter: blur(4px);
+    }
+    .titulo-principal h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 50px;
+      font-weight: normal;
+      margin-bottom: 5px;
+      text-shadow: 2px 4px 12px rgba(0,0,0,0.25);
+    }
+    .titulo-principal .subtitulo {
+      font-size: 17px;
+      opacity: 0.95;
+      font-weight: 300;
+      letter-spacing: 0.5px;
+    }
+
+    /* -------- CONTENIDO INTERNO -------- */
+    .contenido {
+      padding: 35px 35px 25px;
+    }
+    .mensaje-amor {
+      background: linear-gradient(135deg, #fff9fb, #fff0f5);
+      border-radius: 20px;
+      padding: 28px;
+      margin-bottom: 35px;
+      border-left: 6px solid #ff6fb1;
+      box-shadow: 0 6px 20px rgba(255,111,177,0.08);
+    }
+    #mensaje {
+      font-size: 18px;
+      color: #444;
+      white-space: pre-line;
+      line-height: 2;
+      max-height: 400px;
+      overflow-y: auto;
+      padding-right: 12px;
+    }
+    #mensaje::-webkit-scrollbar { width:6px; }
+    #mensaje::-webkit-scrollbar-track { background:#ffe6f2; border-radius:10px; }
+    #mensaje::-webkit-scrollbar-thumb { background:#ff6fb1; border-radius:10px; }
+    .emoji-grande { text-align:center; font-size:32px; margin:18px 0 5px; }
+
+    .contador-tiempo {
+      background: linear-gradient(135deg, #fff0f6, #ffe6f2);
+      border-radius: 20px;
+      padding: 28px;
+      margin-bottom: 35px;
+      border: 2px dashed #ffb6d9;
+      text-align: center;
+      box-shadow: 0 6px 20px rgba(255,111,177,0.06);
+    }
+    .contador-tiempo h2 {
+      color: #d63384;
+      font-size: 26px;
+      margin-bottom: 18px;
+      font-weight: 600;
+    }
+    #contador {
+      font-size: 24px;
+      color: #ff4f9e;
+      font-weight: 600;
+      line-height: 2;
+      padding: 14px 24px;
+      background: #fff;
+      border-radius: 16px;
+      display: inline-block;
+      box-shadow: 0 4px 15px rgba(255,111,177,0.12);
+      border: 1px solid rgba(255,111,177,0.15);
+    }
+
+    /* -------- COMPARTIR Y QR -------- */
+    .acciones-compartir {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin: 30px 0 25px;
+    }
+    .btn-compartir {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: #25D366;
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 60px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 18px;
+      transition: 0.3s;
+      box-shadow: 0 8px 24px rgba(37,211,102,0.3);
+      border: none;
+      cursor: pointer;
+    }
+    .btn-compartir:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 12px 32px rgba(37,211,102,0.4); }
+    .btn-compartir i { font-size: 24px; }
+    .btn-copiar { background: #6c5ce7; box-shadow: 0 8px 24px rgba(108,92,231,0.3); }
+    .btn-copiar:hover { box-shadow: 0 12px 32px rgba(108,92,231,0.4); }
+    .qr-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 20px 0 10px;
+      padding: 20px;
+      background: #fff;
+      border-radius: 24px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+      border: 1px solid #f0e6ea;
+    }
+    .qr-container img {
+      width: 200px;
+      height: 200px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+    .qr-container p { margin-top: 16px; color: #888; font-size: 15px; font-weight: 300; }
+    .qr-container .url-corta { font-size:13px; color:#aaa; word-break:break-all; background:#f9f9f9; padding:6px 14px; border-radius:30px; margin-top:6px; }
+
+    /* -------- GALERÍA INSTAGRAM (MANUAL + SWIPE) -------- */
+    .galeria {
+      margin-bottom: 25px;
+    }
+    .galeria h2 {
+      color: #d63384;
+      font-size: 26px;
+      margin-bottom: 28px;
+      text-align: center;
+      font-weight: 600;
+      position: relative;
+      padding-bottom: 12px;
+    }
+    .galeria h2:after {
+      content: "";
+      position: absolute;
+      bottom:0; left:50%; transform: translateX(-50%);
+      width: 100px; height:4px;
+      background: linear-gradient(90deg, #ff6fb1, #ff4f9e);
+      border-radius: 4px;
+    }
+
+    .instagram-container {
+      position: relative;
+      max-width: 600px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+      border: 1px solid #eee;
+      touch-action: pan-y; /* para swipe */
+    }
+    .instagram-header {
+      display: flex;
+      align-items: center;
+      padding: 16px 20px;
+      border-bottom: 1px solid #f0f0f0;
+      background: #fafafa;
+    }
+    .instagram-avatar {
+      width: 44px; height:44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ff6fb1, #ff4f9e);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 14px;
+      color: #fff;
+      font-size: 20px;
+      box-shadow: 0 4px 12px rgba(255,79,158,0.2);
+    }
+    .instagram-user { font-weight:600; color:#262626; font-size:15px; }
+
+    .instagram-slider-container {
+      position: relative;
+      overflow: hidden;
+      height: 520px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fafafa;
+      touch-action: pan-y;
+    }
+    .instagram-slider {
+      display: flex;
+      height: 100%;
+      transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+      width: 100%;
+    }
+    .instagram-slide {
+      min-width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+    }
+    .instagram-slide img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 10px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      background: #fff;
+    }
+
+    .instagram-indicadores {
+      position: absolute;
+      bottom: 18px;
+      left: 0; right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      z-index: 5;
+    }
+    .instagram-indicador {
+      width: 10px; height:10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      transition: 0.3s;
+      cursor: pointer;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    .instagram-indicador.activo {
+      background: #fff;
+      transform: scale(1.3);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    .instagram-nav {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 12px;
+      z-index: 5;
+    }
+    .instagram-nav button {
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(4px);
+      border: none;
+      width: 44px; height:44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: #333;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    }
+    .instagram-nav button:hover { background: #fff; transform: scale(1.08); }
+
+    .instagram-footer {
+      padding: 16px 20px 18px;
+      border-top: 1px solid #f0f0f0;
+      background: #fafafa;
+    }
+    .instagram-acciones {
+      display: flex;
+      gap: 18px;
+      margin-bottom: 12px;
+    }
+    .instagram-acciones button {
+      background: none;
+      border: none;
+      font-size: 26px;
+      cursor: pointer;
+      color: #262626;
+      transition: 0.3s;
+    }
+    .instagram-acciones button:hover { transform: scale(1.15); }
+    .instagram-acciones button:first-child:hover { color: #ed4956; }
+    .instagram-likes { font-weight:600; font-size:15px; color:#262626; margin-bottom:6px; }
+    .instagram-fecha { font-size:12px; color:#8e8e8e; text-transform:uppercase; letter-spacing:0.5px; }
+
+    .instagram-controles {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 24px;
+      margin-top: 22px;
+    }
+    .instagram-controles button {
+      background: #ff6fb1;
+      color: #fff;
+      border: none;
+      width: 48px; height:48px;
+      border-radius: 50%;
+      font-size: 22px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 6px 20px rgba(255,111,177,0.25);
+    }
+    .instagram-controles button:hover { background:#ff4f9e; transform:scale(1.08); }
+    .instagram-contador {
+      font-size: 18px;
+      color: #ff4f9e;
+      font-weight: 600;
+      background: #fff;
+      padding: 8px 20px;
+      border-radius: 30px;
+      border: 1px solid #ffb6d9;
+      min-width: 80px;
+      text-align: center;
+    }
+
+    /* -------- PIE Y BOTÓN CERRAR -------- */
+    .footer {
+      text-align: center;
+      padding: 22px;
+      color: #ff6fb1;
+      font-size: 15px;
+      border-top: 1px solid #ffe6f2;
+      margin-top: 20px;
+      font-weight: 300;
+    }
+    .boton-cerrar {
+      position: fixed;
+      bottom: 30px; right:30px;
+      background: linear-gradient(135deg, #ff6fb1, #ff4f9e);
+      color: #fff;
+      border: none;
+      width: 64px; height:64px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 26px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      box-shadow: 0 10px 30px rgba(214,51,132,0.35);
+      transition: 0.3s;
+      border: 2px solid rgba(255,255,255,0.2);
+    }
+    .boton-cerrar.mostrar { display: flex; }
+    .boton-cerrar:hover { transform: scale(1.08); box-shadow: 0 14px 40px rgba(214,51,132,0.45); }
+
+    /* -------- RESPONSIVE -------- */
+    @media (max-width: 768px) {
+      .header { height: 300px; }
+      .titulo-principal h1 { font-size: 40px; }
+      .contenido { padding: 22px; }
+      #mensaje { font-size: 16px; }
+      #contador { font-size: 20px; }
+      .sobre { width: 280px; height: 200px; }
+      .destinatario { font-size: 34px; bottom:30px; }
+      .mensaje-contenido { padding: 40px 25px; }
+      .mensaje-contenido h2 { font-size: 38px; }
+      .mensaje-contenido p { font-size: 20px; }
+      .instagram-slider-container { height: 450px; }
+      .controles-musica { top:15px; right:15px; padding:8px 14px; }
+      .controles-musica button { width:36px; height:36px; font-size:16px; }
+      .controles-musica input[type="range"] { width:60px; }
+      .btn-compartir { padding:12px 22px; font-size:16px; }
+      .qr-container img { width:160px; height:160px; }
+      .boton-cerrar { bottom:20px; right:20px; width:56px; height:56px; font-size:22px; }
+    }
+    @media (max-width: 480px) {
+      .header { height: 250px; }
+      .titulo-principal h1 { font-size:32px; }
+      .titulo-principal .subtitulo { font-size:14px; }
+      .sobre { width:230px; height:170px; }
+      .destinatario { font-size:28px; bottom:25px; }
+      .sello { width:60px; height:60px; top:70px; }
+      .sello i { font-size:24px; }
+      .boton-abrir { padding:14px 30px; font-size:18px; }
+      .mensaje-contenido { padding:30px 18px; }
+      .mensaje-contenido h2 { font-size:30px; }
+      .mensaje-contenido p { font-size:18px; }
+      .mensaje-contenido .emoji { font-size:40px; }
+      .instagram-slider-container { height: 380px; }
+      .instagram-nav button { width:36px; height:36px; font-size:16px; }
+      .instagram-controles button { width:42px; height:42px; font-size:18px; }
+      .controles-musica { top:10px; right:10px; padding:6px 10px; flex-direction:column; gap:6px; }
+      .controles-musica button { width:32px; height:32px; font-size:14px; }
+      .controles-musica .volumen input[type="range"] { width:50px; }
+      #contador { font-size:17px; padding:10px 16px; }
+      .btn-compartir { padding:10px 18px; font-size:14px; gap:8px; }
+      .btn-compartir i { font-size:18px; }
+      .qr-container img { width:140px; height:140px; }
+      .boton-cerrar { bottom:15px; right:15px; width:48px; height:48px; font-size:20px; }
+    }
+    @media (max-width: 360px) {
+      .instagram-slider-container { height: 330px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- CONTROLES DE MÚSICA -->
+<div class="controles-musica">
+  <button id="playPauseBtn"><i class="fas fa-play"></i></button>
+  <div class="volumen">
+    <i class="fas fa-volume-up"></i>
+    <input type="range" id="volumenControl" min="0" max="1" step="0.1" value="0.5">
+  </div>
+</div>
+
+<!-- PANTALLA INICIAL -->
+<div class="pantalla-inicial" id="pantallaInicial">
+  <div class="sobre" onclick="abrirCarta()">
+    <div class="sello"><i class="fas fa-heart"></i></div>
+    <div class="destinatario">Para el amor de mi vida</div>
+  </div>
+  <button class="boton-abrir" onclick="abrirCarta()">
+    <i class="fas fa-envelope-open"></i> Abrir carta
+  </button>
+</div>
+
+<!-- MENSAJE INICIAL (10s) -->
+<div class="mensaje-inicial" id="mensajeInicial">
+  <div class="mensaje-contenido">
+    <h2>Para mi amor 💝</h2>
+    <div class="emoji">🥰</div>
+    <p>Cada día contigo es un regalo.</p>
+    <p>Gracias por tu amor, tu ternura y tu sonrisa.</p>
+    <p>Te amo... hoy, mañana y siempre 💖</p>
+    <div class="contador-oculto" id="contadorOculto">10</div>
+  </div>
+</div>
+
+<!-- CONTENIDO DE LA CARTA -->
+<div class="contenido-carta" id="contenidoCarta">
+  <button class="boton-cerrar" id="botonCerrar" onclick="cerrarCarta()">
+    <i class="fas fa-times"></i>
+  </button>
+
+  <div class="container">
+    <!-- HEADER CON CARRUSEL MANUAL -->
+    <div class="header">
+      <div class="carrusel" id="carruselSuperior">
+        <div class="carrusel-slide activa"><img src="AMOR 1.jpeg" alt="Foto 1"></div>
+        <div class="carrusel-slide"><img src="AMOR 2.jpeg" alt="Foto 2"></div>
+        <div class="carrusel-slide"><img src="AMOR 3.jpeg" alt="Foto 3"></div>
+        <div class="carrusel-slide"><img src="AMOR 4.jpeg" alt="Foto 4"></div>
+        <div class="carrusel-controles">
+          <button onclick="carruselSuperiorMover(-1)"><i class="fas fa-chevron-left"></i></button>
+          <button onclick="carruselSuperiorMover(1)"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div class="titulo-principal">
+          <h1>Para el amor de mi vida</h1>
+          <div class="subtitulo">Cada día a tu lado es un regalo 💖</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contenido">
+      <!-- MENSAJE -->
+      <div class="mensaje-amor">
+        <p id="mensaje"></p>
+        <div class="emoji-grande">😍❤️</div>
+      </div>
+
+      <!-- CONTADOR -->
+      <div class="contador-tiempo">
+        <h2>Mi amor por ti comenzó hace...</h2>
+        <p id="contador"></p>
+      </div>
+
+      <!-- COMPARTIR Y QR -->
+      <div style="margin:30px 0 25px; text-align:center;">
+        <h2 style="color:#d63384; font-size:24px; margin-bottom:20px; font-weight:600;">
+          <i class="fas fa-share-alt" style="margin-right:12px;"></i>Comparte este amor
+        </h2>
+        <div class="acciones-compartir">
+          <a id="whatsappLink" href="#" target="_blank" class="btn-compartir">
+            <i class="fab fa-whatsapp"></i> Compartir en WhatsApp
+          </a>
+          <button id="copiarEnlace" class="btn-compartir btn-copiar">
+            <i class="fas fa-link"></i> Copiar enlace
+          </button>
+        </div>
+        <div class="qr-container">
+          <img id="qrImagen" src="" alt="Código QR">
+          <p>Escanea con tu móvil para abrir esta carta</p>
+          <div class="url-corta" id="urlCorta"></div>
+        </div>
+      </div>
+
+      <!-- GALERÍA INSTAGRAM (MANUAL + SWIPE) -->
+      <div class="galeria">
+        <h2>Nuestros momentos especiales</h2>
+        <div class="instagram-container" id="instagramContainer">
+          <div class="instagram-header">
+            <div class="instagram-avatar"><i class="fas fa-heart"></i></div>
+            <div class="instagram-user">nuestro.amor</div>
+          </div>
+          <div class="instagram-slider-container" id="instagramSliderContainer">
+            <div class="instagram-slider" id="instagramSlider">
+              <div class="instagram-slide"><img src="AMOR 5.jpeg" alt="Momento 1"></div>
+              <div class="instagram-slide"><img src="AMOR 6.jpeg" alt="Momento 2"></div>
+              <div class="instagram-slide"><img src="AMOR 7.jpeg" alt="Momento 3"></div>
+              <div class="instagram-slide"><img src="AMOR 8.jpeg" alt="Momento 4"></div>
+              <div class="instagram-slide"><img src="AMOR 9.jpeg" alt="Momento 5"></div>
+              <div class="instagram-slide"><img src="AMOR 10.jpeg" alt="Momento 6"></div>
+              <div class="instagram-slide"><img src="AMOR 11.jpeg" alt="Momento 7"></div>
+              <div class="instagram-slide"><img src="AMOR 12.jpeg" alt="Momento 8"></div>
+              <div class="instagram-slide"><img src="AMOR 13.jpeg" alt="Momento 9"></div>
+              <div class="instagram-slide"><img src="AMOR 14.jpeg" alt="Momento 10"></div>
+            </div>
+            <div class="instagram-indicadores" id="instagramIndicadores"></div>
+            <div class="instagram-nav">
+              <button id="instagramPrev"><i class="fas fa-chevron-left"></i></button>
+              <button id="instagramNext"><i class="fas fa-chevron-right"></i></button>
+            </div>
+          </div>
+          <div class="instagram-footer">
+            <div class="instagram-acciones">
+              <button><i class="far fa-heart"></i></button>
+              <button><i class="far fa-comment"></i></button>
+              <button><i class="far fa-paper-plane"></i></button>
+              <button style="margin-left:auto;"><i class="far fa-bookmark"></i></button>
+            </div>
+            <div class="instagram-likes">A <strong>MayMedina</strong> y <strong>a ti</strong> les encanta esto</div>
+            <div class="instagram-fecha" id="instagramFecha"></div>
+          </div>
+        </div>
+        <div class="instagram-controles">
+          <button onclick="instagramMover(-1)"><i class="fas fa-chevron-left"></i></button>
+          <div class="instagram-contador" id="instagramContador">1/10</div>
+          <button onclick="instagramMover(1)"><i class="fas fa-chevron-right"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">Hecho con todo mi amor ❤️ • Para siempre nosotros</div>
+  </div>
+</div>
+
+<!-- AUDIO -->
+<audio id="musicaFondo" loop>
+  <source src="MUSICA.mpeg" type="audio/mpeg">
+  <source src="MUSICA.mp3" type="audio/mp3">
+</audio>
+
+<script>
+// ========== MÚSICA ==========
+const musica = document.getElementById('musicaFondo');
+const playPauseBtn = document.getElementById('playPauseBtn');
+const volumenControl = document.getElementById('volumenControl');
+let musicaReproduciendo = false;
+musica.volume = 0.5;
+
+playPauseBtn.addEventListener('click', () => {
+  if (musicaReproduciendo) {
+    musica.pause();
+    playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+    musicaReproduciendo = false;
+  } else {
+    musica.play().catch(() => {});
+    playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+    musicaReproduciendo = true;
+  }
+});
+volumenControl.addEventListener('input', (e) => {
+  musica.volume = e.target.value;
+  const icono = document.querySelector('.volumen i');
+  if (e.target.value == 0) icono.className = 'fas fa-volume-mute';
+  else if (e.target.value < 0.5) icono.className = 'fas fa-volume-down';
+  else icono.className = 'fas fa-volume-up';
+});
+document.addEventListener('click', function iniciarMusica() {
+  if (!musicaReproduciendo) {
+    musica.play().then(() => {
+      musicaReproduciendo = true;
+      playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+    }).catch(() => {});
+    document.removeEventListener('click', iniciarMusica);
+  }
+});
+
+// ========== CORAZONES ==========
+const tiposCorazones = ["❤️","💖","💗","💓","💞","💕","❣️","💘"];
+function crearCorazon() {
+  const c = document.createElement('div');
+  c.className = 'corazon';
+  c.innerHTML = tiposCorazones[Math.floor(Math.random() * tiposCorazones.length)];
+  c.style.left = Math.random() * 100 + 'vw';
+  c.style.animationDuration = (5 + Math.random() * 4) + 's';
+  c.style.fontSize = (18 + Math.random() * 28) + 'px';
+  c.style.opacity = 0.4 + Math.random() * 0.5;
+  c.style.animationDelay = Math.random() * 2 + 's';
+  document.body.appendChild(c);
+  setTimeout(() => c.remove(), 10000);
+}
+setInterval(crearCorazon, 400);
+for (let i=0; i<6; i++) setTimeout(crearCorazon, i*200);
+
+// ========== ABRIR / CERRAR CARTA ==========
+function abrirCarta() {
+  document.getElementById('pantallaInicial').classList.add('oculta');
+  setTimeout(() => {
+    document.getElementById('mensajeInicial').classList.add('mostrar');
+    iniciarContadorMensaje();
+  }, 800);
+}
+function iniciarContadorMensaje() {
+  let t = 10;
+  const oculto = document.getElementById('contadorOculto');
+  const mensaje = document.getElementById('mensajeInicial');
+  const interval = setInterval(() => {
+    t--;
+    oculto.textContent = t;
+    if (t <= 0) {
+      clearInterval(interval);
+      mensaje.classList.remove('mostrar');
+      setTimeout(() => {
+        document.getElementById('contenidoCarta').classList.add('mostrar');
+        document.getElementById('botonCerrar').classList.add('mostrar');
+        document.body.style.overflowY = 'auto';
+        iniciarCarta();
+        generarQRYCompartir();
+      }, 500);
+    }
+  }, 1000);
+}
+function cerrarCarta() {
+  document.body.style.overflowY = 'hidden';
+  document.getElementById('contenidoCarta').classList.remove('mostrar');
+  document.getElementById('botonCerrar').classList.remove('mostrar');
+  document.getElementById('mensajeInicial').classList.remove('mostrar');
+  setTimeout(() => {
+    document.getElementById('pantallaInicial').classList.remove('oculta');
+  }, 500);
+}
+
+// ========== CONTENIDO DE LA CARTA ==========
+function iniciarCarta() {
+  const texto =
+`Amor mío ❤️
+
+Si pudiera guardar algo del mundo solo para mí, no serían lugares ni cosas, serías vos. Tu risa, tu mirada, tu forma de decir mi nombre, tu manera de hacer que todo se sienta más ligero y más bonito.
+
+A tu lado entendí que el amor no es perfecto, pero sí es real, cálido y seguro. Es sentir paz incluso en el caos, es querer volver a casa aunque ya esté en casa... porque mi casa sos vos.
+
+Gracias por tu paciencia, por tu ternura, por tus abrazos que parecen detener el tiempo y por elegirme cada día, así como yo te elijo a vos sin dudarlo.
+
+No prometo ser perfecto, pero sí prometo amarte con sinceridad, cuidarte con el corazón y caminar a tu lado pase lo que pase.
+
+Siempre con vos.
+Siempre para vos.
+Siempre nosotros. 😍❤️`;
+
+  let i=0;
+  const el = document.getElementById('mensaje');
+  el.innerHTML = '';
+  function escribir() {
+    if (i < texto.length) {
+      el.innerHTML += texto.charAt(i);
+      i++;
+      setTimeout(escribir, 30);
+    }
+  }
+  escribir();
+
+  // Contador desde 27-08-2023
+  const inicio = new Date(2023,7,27);
+  function actualizarContador() {
+    const ahora = new Date();
+    let años = ahora.getFullYear() - inicio.getFullYear();
+    let meses = ahora.getMonth() - inicio.getMonth();
+    let dias = ahora.getDate() - inicio.getDate();
+    if (dias < 0) { meses--; const ultimoMes = new Date(ahora.getFullYear(), ahora.getMonth(), 0).getDate(); dias += ultimoMes; }
+    if (meses < 0) { años--; meses += 12; }
+    const horas = ahora.getHours();
+    const minutos = ahora.getMinutes();
+    const segundos = ahora.getSeconds();
+    document.getElementById('contador').innerHTML =
+      `${años} años • ${meses} meses • ${dias} días • ${horas} horas • ${minutos} minutos • ${segundos} segundos`;
+  }
+  setInterval(actualizarContador, 1000);
+  actualizarContador();
+
+  // Iniciar galería Instagram y carrusel superior
+  iniciarInstagram();
+}
+
+// ========== CARRUSEL SUPERIOR (MANUAL) ==========
+let idxCarruselSuperior = 0;
+const slidesSuperior = document.querySelectorAll('.carrusel-slide');
+function carruselSuperiorMover(direccion) {
+  slidesSuperior[idxCarruselSuperior].classList.remove('activa');
+  idxCarruselSuperior = (idxCarruselSuperior + direccion + slidesSuperior.length) % slidesSuperior.length;
+  slidesSuperior[idxCarruselSuperior].classList.add('activa');
+}
+
+// ========== GALERÍA INSTAGRAM (MANUAL + SWIPE) ==========
+let instagramPosicion = 0;
+const instagramTotalFotos = 10;
+const instagramSlider = document.getElementById('instagramSlider');
+const instagramIndicadores = document.getElementById('instagramIndicadores');
+const instagramContainer = document.getElementById('instagramContainer');
+
+function iniciarInstagram() {
+  // Fecha
+  const hoy = new Date();
+  document.getElementById('instagramFecha').textContent =
+    hoy.toLocaleDateString('es-ES', { month:'long', day:'numeric' }).toUpperCase();
+
+  // Indicadores
+  instagramIndicadores.innerHTML = '';
+  for (let i=0; i<instagramTotalFotos; i++) {
+    const div = document.createElement('div');
+    div.className = 'instagram-indicador' + (i===0 ? ' activo' : '');
+    div.addEventListener('click', () => { instagramPosicion = i; actualizarInstagram(); });
+    instagramIndicadores.appendChild(div);
+  }
+
+  // Botones
+  document.getElementById('instagramPrev').addEventListener('click', () => instagramMover(-1));
+  document.getElementById('instagramNext').addEventListener('click', () => instagramMover(1));
+
+  // SWIPE (táctil)
+  let startX = 0, endX = 0;
+  const container = document.getElementById('instagramSliderContainer');
+  container.addEventListener('touchstart', (e) => {
+    startX = e.changedTouches[0].screenX;
+  }, {passive: true});
+  container.addEventListener('touchend', (e) => {
+    endX = e.changedTouches[0].screenX;
+    const diff = startX - endX;
+    if (Math.abs(diff) > 50) { // umbral mínimo
+      if (diff > 0) instagramMover(1);  // swipe izquierda -> siguiente
+      else instagramMover(-1);           // swipe derecha -> anterior
+    }
+  }, {passive: true});
+
+  actualizarInstagram();
+}
+
+function instagramMover(direccion) {
+  instagramPosicion = (instagramPosicion + direccion + instagramTotalFotos) % instagramTotalFotos;
+  actualizarInstagram();
+}
+
+function actualizarInstagram() {
+  instagramSlider.style.transform = `translateX(-${instagramPosicion * 100}%)`;
+  document.querySelectorAll('.instagram-indicador').forEach((el, i) => {
+    el.classList.toggle('activo', i === instagramPosicion);
+  });
+  document.getElementById('instagramContador').textContent = `${instagramPosicion+1}/${instagramTotalFotos}`;
+}
+
+// ========== COMPARTIR Y QR ==========
+function generarQRYCompartir() {
+  const url = window.location.href;
+  // WhatsApp
+  const msg = encodeURIComponent(`¡Mira esta carta de amor tan especial! ❤️\n${url}\n\nTe invito a leerla, está hecha con mucho cariño.`);
+  document.getElementById('whatsappLink').href = `https://wa.me/?text=${msg}`;
+
+  // QR
+  document.getElementById('qrImagen').src =
+    `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(url)}&bgcolor=ffffff&color=d63384&margin=10`;
+
+  // URL corta
+  const urlCorta = document.getElementById('urlCorta');
+  urlCorta.textContent = url.length > 50 ? url.substring(0,47) + '...' : url;
+
+  // Copiar enlace
+  document.getElementById('copiarEnlace').addEventListener('click', function() {
+    navigator.clipboard.writeText(url).then(() => {
+      const original = this.innerHTML;
+      this.innerHTML = '<i class="fas fa-check"></i> ¡Copiado!';
+      setTimeout(() => this.innerHTML = original, 2000);
+    }).catch(() => alert('Copia manual: ' + url));
+  });
+}
+
+// Inicialmente ocultar scroll
+document.body.style.overflowY = 'hidden';
+
+// Abrir con Enter
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !document.getElementById('pantallaInicial').classList.contains('oculta')) {
+    abrirCarta();
+  }
+});
+</script>
+</body>
+</html>
